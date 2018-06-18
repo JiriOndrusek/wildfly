@@ -238,10 +238,7 @@ class ActiveMQServerService implements Service<ActiveMQServer> {
                         } else {
                             port = binding.getDestinationPort();
                             host = NetworkUtils.canonize(binding.getUnresolvedDestinationAddress());
-                            if (binding.getSourceAddress() != null) {
-                                tc.getParams().put(TransportConstants.LOCAL_ADDRESS_PROP_NAME,
-                                        NetworkUtils.canonize(binding.getSourceAddress().getHostAddress()));
-                            }
+                            //localAddress can not be added to parameters - see https://issues.jboss.org/browse/WFLY-10589
                             if (binding.getSourcePort() != null) {
                                 // Use absolute port to account for source port offset/fixation
                                 tc.getParams().put(TransportConstants.LOCAL_PORT_PROP_NAME, binding.getAbsoluteSourcePort());
